@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - CloudThumb</title>
+    <style>
+        :root { --primary: #232f3e; --secondary: #ff9900; --bg: #f3f4f6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); display: flex; flex-direction: column; min-height: 100vh; }
+        .navbar { background: var(--primary); padding: 1rem 5%; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .auth-container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .auth-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .auth-card h2 { margin-top: 0; color: var(--primary); text-align: center; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-submit { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #37475a; }
+        .auth-footer { text-align: center; margin-top: 20px; font-size: 0.9rem; }
+        .auth-footer a { color: var(--secondary); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><h2>CloudThumb</h2></div>
+        <a href="/" style="color: white; text-decoration: none;">Home</a>
+    </nav>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Welcome Back</h2>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+            <div class="auth-footer">
+                New to CloudThumb? <a href="/register">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

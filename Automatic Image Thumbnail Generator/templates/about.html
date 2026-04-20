@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About - CloudThumb</title>
+    <style>
+        :root { --primary: #232f3e; --secondary: #ff9900; }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #fff; color: #333; }
+        .navbar { background: var(--primary); padding: 1rem 5%; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .hero-mini { background: #37475a; color: white; padding: 60px 5%; text-align: center; }
+        .content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .tech-tag { display: inline-block; background: #eee; padding: 5px 15px; border-radius: 20px; margin: 5px; font-size: 0.9rem; font-weight: bold; color: var(--primary); }
+        .flow-step { margin-bottom: 30px; padding-left: 20px; border-left: 3px solid var(--secondary); }
+        .flow-step h4 { margin: 0; color: var(--primary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Architecture</h2>
+        <a href="/" style="color:white; text-decoration:none;">Home</a>
+    </nav>
+    <div class="hero-mini">
+        <h1>How CloudThumb Works</h1>
+        <p>A serverless approach to media processing.</p>
+    </div>
+    <div class="content">
+        <h3>AWS Services Used</h3>
+        <div>
+            <span class="tech-tag">Amazon S3</span>
+            <span class="tech-tag">AWS Lambda</span>
+            <span class="tech-tag">Amazon SQS</span>
+            <span class="tech-tag">Amazon API Gateway</span>
+            <span class="tech-tag">CloudWatch</span>
+            <span class="tech-tag">IAM Roles</span>
+        </div>
+
+        <h3>Workflow Execution</h3>
+        <div class="flow-step">
+            <h4>1. Ingestion</h4>
+            <p>Users upload high-resolution images. The Flask backend streams these directly to an S3 "Uploads" bucket.</p>
+        </div>
+        <div class="flow-step">
+            <h4>2. Decoupling with SQS</h4>
+            <p>Instead of processing the image immediately (blocking the user), we drop a message into an SQS Queue. This ensures the system remains responsive even under heavy load.</p>
+        </div>
+        <div class="flow-step">
+            <h4>3. Serverless Processing</h4>
+            <p>An AWS Lambda function is triggered by SQS. It downloads the image, uses the Pillow library to resize it, and uploads it to the "Thumbnails" folder.</p>
+        </div>
+        <div class="flow-step">
+            <h4>4. Async Notification</h4>
+            <p>The status is updated, and the user can see their thumbnail in the gallery immediately after processing is complete.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Status - CloudThumb</title>
+    <style>
+        :root { --primary: #232f3e; --secondary: #ff9900; --success: #2ecc71; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
+        .navbar { background: var(--primary); padding: 1rem 5%; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .container { padding: 40px 5%; }
+        .log-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .log-table th { background: #37475a; color: white; text-align: left; padding: 15px; }
+        .log-table td { padding: 15px; border-bottom: 1px solid #eee; }
+        .status-pill { padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; }
+        .status-completed { background: #d4edda; color: #155724; }
+        .status-queued { background: #fff3cd; color: #856404; }
+        .cloudwatch-sim { background: #1a1a1a; color: #00ff00; padding: 20px; border-radius: 5px; font-family: 'Courier New', monospace; margin-top: 30px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Processing Status</h2>
+        <a href="/dashboard" style="color:white; text-decoration:none;">Dashboard</a>
+    </nav>
+    <div class="container">
+        <h3>Live Processing History</h3>
+        <table class="log-table">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log[0] }}</td>
+                    <td>
+                        <span class="status-pill {{ 'status-completed' if log[1] == 'Completed' else 'status-queued' }}">
+                            {{ log[1] }}
+                        </span>
+                    </td>
+                    <td>{{ log[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="cloudwatch-sim">
+            <p>> [INFO] Fetching CloudWatch Logs...</p>
+            <p>> [EVENT] SQS Message Received: MessageId: 542a-4421-...</p>
+            <p>> [LAMBDA] Triggering function 'ThumbnailGen'...</p>
+            <p>> [S3] Read Success: uploads/image_1.jpg</p>
+            <p>> [PIL] Resizing image to 200x200...</p>
+            <p>> [S3] Write Success: thumbnails/image_1.jpg</p>
+            <p>> [INFO] Task Finished Successfully.</p>
+        </div>
+    </div>
+</body>
+</html>
