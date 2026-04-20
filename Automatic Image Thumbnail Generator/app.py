@@ -15,7 +15,7 @@ app.secret_key = os.getenv("SECRET_KEY", "aws_cloud_secret_123")
 # AWS Configurations
 S3_BUCKET = os.getenv("S3_BUCKET_NAME")
 SQS_QUEUE_URL = os.getenv("SQS_QUEUE_URL")
-AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+AWS_REGION = os.getenv("AWS_REGION", "ap-south-1")
 
 s3_client = boto3.client('s3', region_name=AWS_REGION)
 sqs_client = boto3.client('sqs', region_name=AWS_REGION)
@@ -133,6 +133,11 @@ def status():
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
+
+@app.route('/about')
+def about():
+    # This route renders the architecture and workflow explanation page
+    return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
